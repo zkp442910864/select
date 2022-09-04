@@ -1,0 +1,118 @@
+
+@scrollBackgroundBar: rgb(214 214 214 / 45%);
+@scrollBackgroundChuck: rgb(214 214 214);
+
+.zzzz-scroll-hidden{
+    display: none !important;
+}
+
+// 外层盒子
+.zzzz-scroll-box{
+    overflow: hidden;
+    box-sizing: border-box;
+    position: relative;
+    // display: inline-block;
+    // width: 100%;
+}
+
+// 滚动盒子
+.zzzz-scroll-content{
+    // padding-right: 20px;
+    // margin-right: -20px;
+    // padding-bottom: 20px;
+    // margin-bottom: -20px;
+
+    // max-height: 200px;
+    // width: 500px;
+    // max-width: 100vw;
+    // max-height: 100vh;
+    overflow: auto;
+    box-sizing: border-box;
+
+    // &::-webkit-scrollbar{
+    //     width: initial;
+    //     height: initial;
+    //     background-color: initial;
+    // }
+
+    // &::-webkit-scrollbar-corner{
+    //     width: initial;
+    //     height: initial;
+    //     background-color: initial;
+    // }
+
+    // &::-webkit-scrollbar-thumb{
+    //     background-color: initial;
+    // }
+
+    // &::-webkit-scrollbar-track{
+    //     background-color: initial;
+    // }
+}
+
+// 开启滚动增加边距
+.zzzz-scroll-content.open-right{
+    // padding-right: 20px;
+    // margin-right: -20px;
+    padding-right: 10px;
+    margin-right: -17px;
+}
+
+// 开启滚动增加边距
+.zzzz-scroll-content.open-bottom{
+    // padding-bottom: 20px;
+    // margin-bottom: -20px;
+    padding-bottom: 10px;
+    margin-bottom: -17px;
+}
+
+// 左边滚动轴
+.zzzz-scroll-right{
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 10px;
+    background-color: @scrollBackgroundBar;
+    user-select: none;
+    // 交界处做处理
+    // padding-bottom: 10px;
+}
+
+// 底部滚动轴
+.zzzz-scroll-bottom{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 10px;
+    background-color: @scrollBackgroundBar;
+    user-select: none;
+    // 交界处做处理
+    // padding-right: 10px;
+}
+
+// 滚动块
+.zzzz-scroll-chuck{
+    top: 0;
+    left: 0;
+    position: absolute;
+    background: #718096;
+    width: 100%;
+    height: 100%;
+    transition: 0.1s;
+    cursor: pointer;
+    box-shadow: 0 0 2px 0px rgb(0 0 0 / 27%);
+
+    &:hover, &:active{
+        box-shadow: 0 0 4px 0px rgb(0 0 0 / 75%);
+        // transform: scaleY(1.1);
+    }
+
+}
+
+// 虚拟滚动撑开线
+.zzzz-scroll-virtual-left-line{
+    width: 10px;
+    float: left;
+}

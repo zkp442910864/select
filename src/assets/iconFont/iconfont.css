@@ -1,0 +1,52 @@
+@font-face {
+    font-family: zzzzIconfont; /* Project id  */
+    src: url('iconfont.ttf?t=1662170634269') format('truetype');
+}
+
+.zzzz-iconfont {
+    font-family: zzzzIconfont !important;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-style: normal;
+}
+
+.zzzz-icon-xiala::before {
+    content: '\e6b9';
+}
+
+.zzzz-icon-checkbox-weixuan::before {
+    content: '\e8b5';
+}
+
+.zzzz-icon-checkbox-xuanzhong::before {
+    content: '\e8b6';
+}
+
+.zzzz-icon-checkbox-xuanzhongbufen::before {
+    content: '\e8b7';
+}
+
+.zzzz-icon-qingchu::before {
+    content: '\e6f1';
+}
+
+.zzzz-icon-qingchuneirong::before {
+    content: '\e6b5';
+}
+
+.zzzz-icon-caidanzhankai::before {
+    content: '\e6a3';
+}
+
+.zzzz-icon-youjiantou::before {
+    content: '\e675';
+}
+
+.zzzz-icon-radiobuttonunselect::before {
+    content: '\e6ed';
+}
+
+.zzzz-icon-radiobuttonselect::before {
+    content: '\e6ee';
+}
