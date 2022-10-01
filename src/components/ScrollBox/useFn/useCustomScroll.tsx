@@ -174,6 +174,7 @@ export const useCustomScroll = (boxRef: React.MutableRefObject<HTMLDivElement | 
         const rightDownEvent = getChuckDownEvent('top', contentDom);
         const bottomDownEvent = getChuckDownEvent('left', contentDom);
         const resizeEvent = throttleDebounce(() => {
+            // debugger
             resetValue();
             setScrollLocation();
         }, 16);
@@ -182,7 +183,6 @@ export const useCustomScroll = (boxRef: React.MutableRefObject<HTMLDivElement | 
             resizeEvent();
         });
 
-        resizeEvent();
         observer.observe(boxDom, {attributes: true, attributeFilter: ['style', 'class']});
         observer.observe(contentDom, {childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['style', 'class']});
         window.addEventListener('resize', resizeEvent, false);
@@ -190,6 +190,7 @@ export const useCustomScroll = (boxRef: React.MutableRefObject<HTMLDivElement | 
         rightChuckDom?.addEventListener('mousedown', rightDownEvent, false);
         bottomChuckDom?.addEventListener('mousedown', bottomDownEvent, false);
 
+        // resizeEvent();
         return () => {
             observer.disconnect();
             window.removeEventListener('resize', resizeEvent, false);
