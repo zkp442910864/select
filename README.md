@@ -1,6 +1,6 @@
 # @zzzz-/select
 
-[文档地址](https://zkp442910864.github.io/antd-extends/)
+[文档地址](https://zkp442910864.github.io/select/)
 
 ## 执行命令
 
