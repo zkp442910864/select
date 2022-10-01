@@ -17,20 +17,20 @@ export interface IProps<T> {
      */
     virtual?: boolean;
     /**
-      * 虚拟滚动 是否固定高度
+      * 虚拟滚动的内容 是否固定高度
       * @default true
       */
     virtualIsFixedHeight?: boolean;
     /**
      * 树形数据
      *
-     * 如果字段key不是标准类型，请使用 handlerItem 函数进行处理
+     * 如果字段key不是标准类型，请使用 normalizer 函数进行处理
      *
      * {title, value, children, disabled, className}
      */
     options?: T[];
     /** 字段映射处理 */
-    handlerItem?: (item: T, level: number) => IOptions<T>;
+    normalizer?: (item: T, level: number) => IOptions<T>;
     /** 选中值 */
     value?: TValue;
     /**
@@ -56,10 +56,26 @@ export interface IProps<T> {
      * @default 50
      */
     maxTagCount?: number;
+    /**
+     * 值过滤
+     *  title 文本搜索
+     *  value 值搜索
+     *  all 两种同时适用
+     * @default title
+     */
+    filterOption?: 'title' | 'value' | 'all';
 }
 
-export interface IRef {
+export interface IRef<T> {
+    /** 聚焦方法 */
     focus: () => void;
+    /** 获取两个键值映射的对象(valueToItem, titleToItem) */
+    getValMap: () => {
+        /** value 值映射 */
+        valueToItem: Record<string | number, IItemData<T>>;
+        /** title 值映射 */
+        titleToItem: Record<string | number, IItemData<T>[]>;
+    };
 }
 
 export type TText = string | number;

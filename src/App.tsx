@@ -4,7 +4,7 @@ import {createRoot} from 'react-dom/client';
 import '@/assets/style.less';
 
 import TreeSelect from './components/TreeSelect';
-import ScrollBox from './components/ScrollBox';
+// import ScrollBox from './components/ScrollBox';
 import data from './data.json';
 
 import {TValue} from './components/TreeSelect/TreeSelect.d';
@@ -29,10 +29,12 @@ export default () => {
         return (
             <div>
                 {/* <div style={{width: 500, paddingLeft: 100, paddingTop: 200}}> */}
-                <div onClick={() => setVal([])}>1</div>
+                {/* <div onClick={() => setVal([])}>1</div> */}
                 <TreeSelect<any>
                     // disabledRoot={true}
-                    handlerItem={(item, level) => {
+                    multiple={true}
+                    // multiple={false}
+                    normalizer={(item, level) => {
                         return {
                             title: item.NAME,
                             value: item.ID,
@@ -41,8 +43,6 @@ export default () => {
                             // disabled: level === 0 ? true : undefined,
                         };
                     }}
-                    // multiple={false}
-                    multiple={true}
                     options={options}
                     popupsMinWidth={600}
                     // options={data}

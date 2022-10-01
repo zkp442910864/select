@@ -41,37 +41,38 @@ module.exports = (env, argv, config) => {
                 clearConsole: true,
             }),
             // 开启 hot时候，会自动添加
-            new webpack.HotModuleReplacementPlugin(),
+            // new webpack.HotModuleReplacementPlugin(),
         ],
         optimization: {
             moduleIds: 'named',
             chunkIds: 'named',
         },
+        // https://github.com/webpack/webpack-dev-server/blob/master/migration-v4.md 升级变化点
         devServer: {
-            // webpack-dev-server 会从 output.path 中定义的目录为服务提供 bundle 文件，即，文件将可以通过 http://[devServer.host]:[devServer.port]/[output.publicPath]/[output.filename] 进行访问。
-            // 貌似设置成绝对路径才能正常加载页面
-            publicPath: '/',
             open: false,
             port,
-            host: '0.0.0.0',
-            useLocalIp: true,
-            inline: true,
-            hot: true,
-            hotOnly: true,
-            stats: 'errors-only',
-            quiet: true,
-            before: disabledMock ? undefined : (app) => {
-                mockerApi(app, path.resolve(__dirname, '../mock/index'), {
-                    // 代理地址
-                    // proxy: {
-                    //     '/api/repos/*': 'https://api.github.com/',
-                    // },
-                    // 重写目标网址路径。对象键将用作RegEx来匹配路径。
-                    // pathRewrite: {
-                    //     '^/api/repos/': '/repos/',
-                    // },
-                    changeHost: true,
-                });
+            // host: 'local-ip',
+            hot: 'only',
+            devMiddleware: {
+                stats: 'errors-only',
+                // 貌似设置成绝对路径才能正常加载页面
+                publicPath: '/',
+            },
+            setupMiddlewares: (arrayOfMiddlewares, devServer) => {
+
+                // mockerApi(devServer.app, path.resolve(__dirname, '../mock/index'), {
+                //     // 代理地址
+                //     // proxy: {
+                //     //     '/api/repos/*': 'https://api.github.com/',
+                //     // },
+                //     // 重写目标网址路径。对象键将用作RegEx来匹配路径。
+                //     // pathRewrite: {
+                //     //     '^/api/repos/': '/repos/',
+                //     // },
+                //     changeHost: true,
+                // });
+
+                return arrayOfMiddlewares;
             },
         },
     };

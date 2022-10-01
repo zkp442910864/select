@@ -4,20 +4,21 @@ import React, {FC, forwardRef, useEffect, useRef} from 'react';
 import {useStateAutoStop, debounce, empty} from '../../utils';
 import {IProps, IOptions, TObj, IItemData} from '../TreeSelect.d';
 
-export function useHandlerData<T> (options: IProps<T>['options'], handlerItem: IProps<T>['handlerItem'], otherProps: Pick<Required<IProps<T>>, 'treeDefaultExpandAll'>) {
+export function useHandlerData<T> (options: IProps<T>['options'], normalizer: IProps<T>['normalizer'], otherProps: Pick<Required<IProps<T>>, 'treeDefaultExpandAll'>) {
     type TItemData = IItemData<T>;
 
     const [, update] = useStateAutoStop({});
     const data = useRef({
         /** 对应项 */
         idToItem: {} as Record<string | number, IItemData<T>>,
+        textToItem: {} as Record<string | number, IItemData<T>[]>,
         /** 所有数据 */
         allData: [] as IItemData<T>[],
         /** 根节点数据 */
         rootData: [] as IItemData<T>[],
     });
 
-    const defaultHandlerItem: Required<IProps<T>>['handlerItem'] = (item, level) => {
+    const defaultNormalizer: Required<IProps<T>>['normalizer'] = (item, level) => {
         return {
             ...(item as unknown as IOptions<T>),
         };
@@ -26,10 +27,11 @@ export function useHandlerData<T> (options: IProps<T>['options'], handlerItem: I
     /** 处理 */
     const handlerData = () => {
         if (!Array.isArray(options)) return;
-        const handler = handlerItem || defaultHandlerItem;
+        const handler = normalizer || defaultNormalizer;
 
         const curData = data.current;
         const idToItem = curData.idToItem;
+        const textToItem = curData.textToItem;
         const rootData = curData.rootData;
         const allData = curData.allData;
 
@@ -40,6 +42,7 @@ export function useHandlerData<T> (options: IProps<T>['options'], handlerItem: I
 
             data.forEach((rawItem) => {
                 const item = handler(rawItem, level);
+                const title = item.title;
                 const key = item.value;
                 const children = item.children;
                 const hasChildren = !!children?.length;
@@ -70,6 +73,9 @@ export function useHandlerData<T> (options: IProps<T>['options'], handlerItem: I
                     /** 收集所有子级key，方便判断 */
                     childrenAllKeyArr: [],
                 };
+
+                // 收集数据
+                (textToItem[title] = textToItem[title] || []).push(newItem);
 
                 // 键值对
                 if (idToItem[key]) {
@@ -125,6 +131,7 @@ export function useHandlerData<T> (options: IProps<T>['options'], handlerItem: I
 
         // console.log(filterData);
         // console.log(curData);
+        // console.log(textToItem);
 
         update({});
     };
@@ -133,6 +140,7 @@ export function useHandlerData<T> (options: IProps<T>['options'], handlerItem: I
     useEffect(() => {
         data.current = {
             idToItem: {},
+            textToItem: {},
             allData: [],
             rootData: [],
         };
@@ -143,5 +151,11 @@ export function useHandlerData<T> (options: IProps<T>['options'], handlerItem: I
 
     return {
         ...data.current,
+        getValMap: () => {
+            return {
+                valueToItem: data.current.idToItem,
+                titleToItem: data.current.textToItem,
+            };
+        }
     };
 }

@@ -42,7 +42,7 @@ export function useInput (
 
     /** 进入 */
     const enterView = () => {
-        setIsFocus(true);
+        !isFocus && setIsFocus(true);
         judgeBottom();
         judgeRight();
     };
@@ -50,6 +50,10 @@ export function useInput (
     /** 离开 */
     const leaveView = () => {
         setIsFocus(false);
+        setTimeout(() => {
+            if (!ref.current) return;
+            isFocus && ref.current.blur();
+        }, 0);
     };
 
 
@@ -81,24 +85,29 @@ export function useInput (
                         type="text"
                         value={search}
                         onChange={(e) => {
+                            !isFocus && setIsFocus(true);
                             setSearch(e.target.value || '');
                         }}
                         onKeyDown={(e) => {
                             // console.log(e.key);
+
+                            // 后退 删除功能
                             if (empty(search) && e.key === 'Backspace') {
                                 const val = selectKeys.pop();
                                 if (empty(val)) return;
-                                const newSelectData = selectKeys.reverse().reduce((map, key) => {
+
+                                const newSelectData = selectKeys.reduce((map, key) => {
                                     map[key] = true;
                                     return map;
                                 }, {} as Record<string | number, true>);
+
                                 setSelectData(newSelectData);
                             }
                         }}
                     />
                 </>
             );
-        }, [search, selectKeys]),
+        }, [search, selectKeys, isFocus]),
         /** 搜索文本 */
         searchText: search,
         /** 清空搜索文本 */

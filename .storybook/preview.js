@@ -28,7 +28,7 @@ export const parameters = {
     docs: {
         description: {
             // 描述内容，可以进行覆盖
-            component: '所有组件都是基于antd 组件进行二次封装',
+            component: '',
         },
     },
     // 排序

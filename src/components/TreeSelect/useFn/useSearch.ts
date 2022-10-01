@@ -3,7 +3,7 @@ import {useEffect, useRef} from 'react';
 import {useStateAutoStop, debounce, empty, jsCopy, isCopyType} from '../../utils';
 import {IProps, IOptions, TObj, IItemData, Expand} from '../TreeSelect.d';
 
-export function useSearch<T>(rootOptions: IItemData<T>[], allOptions: IItemData<T>[], externalSearch: string) {
+export function useSearch<T>(rootOptions: IItemData<T>[], allOptions: IItemData<T>[], externalSearch: string, filterOption: IProps<T>['filterOption'] = 'title') {
     type TArrData = typeof rootOptions;
 
     const [, update] = useStateAutoStop({});
@@ -87,8 +87,8 @@ export function useSearch<T>(rootOptions: IItemData<T>[], allOptions: IItemData<
         let searchArr: string[] | null = null;
 
         const judge = (keyword: string, value: number | string) => {
-            const str = keyword.toString().toLowerCase();
-            const val = value.toString().toLowerCase();
+            const str = keyword.toString().trim().toLowerCase();
+            const val = value.toString().trim().toLowerCase();
             // return dataStr.indexOf(value.toString().toLowerCase()) !== -1;
             // return str.indexOf(val) !== -1 || val.indexOf(str) !== -1;
             return val.indexOf(str) !== -1;
@@ -99,8 +99,19 @@ export function useSearch<T>(rootOptions: IItemData<T>[], allOptions: IItemData<
                 searchArr = search.replace(/[,|，]/g, ',').toLowerCase().split(',').filter(ii => !empty(ii));
             }
 
-            return searchArr.some(keyword => {
-                // debugger;
+            return searchArr.some((keyword) => {
+                // if (item.title === '巴彦浩特新华街道办事处') {
+                //     debugger;
+                // }
+
+                if (filterOption === 'title') {
+                    return judge(keyword, item.title);
+                }
+
+                if (filterOption === 'value') {
+                    return judge(keyword, item.value);
+                }
+
                 return judge(keyword, item.title) || judge(keyword, item.value);
             });
         };
@@ -174,7 +185,7 @@ export function useSearch<T>(rootOptions: IItemData<T>[], allOptions: IItemData<
         /** 判断缓存是否存在，存在进行更新 */
 
         // 空
-        if (empty(externalSearch) || !rootOptions.length || !allOptions.length) {
+        if (empty((externalSearch || '').toString().trim()) || !rootOptions.length || !allOptions.length) {
             data.current = {
                 filterRootData: rootOptions,
                 filterAllData: allOptions,

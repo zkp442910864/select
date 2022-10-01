@@ -1,7 +1,7 @@
 import React, {FC, ForwardedRef, forwardRef, Ref, RefAttributes, useEffect, useImperativeHandle, useMemo, useRef, useState} from 'react';
 import classNames from 'classnames';
 
-import '@/assets/iconFont/iconfont.css';
+import '../../assets/iconFont/iconfont.css';
 
 import {useStateAutoStop, debounce, empty, useDebounceEffect} from '../utils';
 import {IProps, IItemData, TObj, TSelected, IRef} from './TreeSelect.d';
@@ -23,20 +23,21 @@ function TreeSelect<T> ({
     treeDefaultExpandAll = false,
     maxTagCount = 50,
     popupsMinWidth = '100%',
+    filterOption = 'title',
     virtual,
-    handlerItem,
+    normalizer,
     options,
     value,
     onChange,
-}: IProps<T> & RefAttributes<IRef>, ref: Ref<IRef>) {
+}: IProps<T> & RefAttributes<IRef<T>>, ref: Ref<IRef<T>>) {
 
     const dom = useRef<HTMLDivElement | null>(null);
 
     const [lock, setLock] = useStateAutoStop(false);
     const {selectData, selectKeys, setSelectData, isSelected, clearSelectData} = useSelectData();
-    const {searchDom, searchText, clearSearch, focus, isFocus, downOrUp, leftOrRight, enterView} = useInput(dom, selectKeys, setSelectData, {popupsMaxHeight, popupsMinWidth});
-    const {idToItem, allData, rootData} = useHandlerData<T>(options, handlerItem, {treeDefaultExpandAll});
-    const {filterRootData, filterAllData} = useSearch<T>(rootData, allData, searchText);
+    const {searchDom, searchText, clearSearch, focus, isFocus, downOrUp, leftOrRight, enterView, leaveView} = useInput(dom, selectKeys, setSelectData, {popupsMaxHeight, popupsMinWidth});
+    const {idToItem, getValMap, allData, rootData} = useHandlerData<T>(options, normalizer, {treeDefaultExpandAll});
+    const {filterRootData, filterAllData} = useSearch<T>(rootData, allData, searchText, filterOption);
     const {showData, expandUpdateFn} = useShowData<T>(filterRootData, selectData, {multiple, disabledRoot});
     // return <></>;
     // const [, update] = useStateAutoStop({});
@@ -102,6 +103,7 @@ function TreeSelect<T> ({
             onChange?.(keys, items);
         } else {
             onChange?.(keys[0], items[0]);
+            leaveView();
         }
 
     }, [selectData], 0, false);
@@ -109,10 +111,14 @@ function TreeSelect<T> ({
     // console.log(showData);
     // console.log(Object.keys(selectData));
     useImperativeHandle(ref, () => {
+
         return {
             focus,
+            getValMap,
+            // valueToItem: idToItem,
+            // titleToItem: textToItem,
         };
-    }, []);
+    }, [options, rootData]);
 
     return (
         <div className="zzzz-tree-select-input-box" ref={dom} onClick={() => {enterView(); focus();}}>
@@ -190,5 +196,25 @@ function TreeSelect<T> ({
         </div>
     );
 }
+
 export default forwardRef(TreeSelect as any) as typeof TreeSelect;
-// export default TreeSelect2;
+
+// const TreeSelect = <T extends object>({
+//         popupsMaxHeight = 300,
+//         virtualIsFixedHeight = true,
+//         multiple = false,
+//         disabledRoot = false,
+//         treeDefaultExpandAll = false,
+//         maxTagCount = 50,
+//         popupsMinWidth = '100%',
+//         virtual,
+//         normalizer,
+//         options,
+//         value,
+//         onChange,
+//     }: IProps<T> & RefAttributes<IRef<T>>) => {
+//     return (
+//         <>1</>
+//     );
+// }
+// export default TreeSelect;

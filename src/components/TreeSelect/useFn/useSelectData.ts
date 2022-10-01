@@ -10,7 +10,8 @@ export const useSelectData = () => {
 
     const newSetSelectData: typeof setSelectData = (newData) => {
         if (typeof newData === 'object') {
-            selectKeys.current = Object.keys(newData).reverse();
+            // selectKeys.current = Object.keys(newData).reverse();
+            selectKeys.current = Object.keys(newData);
             setSelectData(newData);
         }
     };
