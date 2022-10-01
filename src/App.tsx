@@ -5,7 +5,7 @@ import '@/assets/style.less';
 
 import TreeSelect from './components/TreeSelect';
 // import ScrollBox from './components/ScrollBox';
-import data from './data.json';
+import data from './testData/data.json';
 
 import {TValue} from './components/TreeSelect/TreeSelect.d';
 
