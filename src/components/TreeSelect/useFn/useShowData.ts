@@ -22,6 +22,7 @@ export function useShowData<T>(options: IItemData<T>[], selected: TSelected, oth
             /** 命中标识 */
             // let emptyCount = 0;
             const values = item.childrenAllKeyArr;
+            /** 非空的数量(有值的数量) */
             const noEmptyCount = values.filter(val => !empty(selected[val])).length;
 
             if (noEmptyCount === 0) {
@@ -55,13 +56,15 @@ export function useShowData<T>(options: IItemData<T>[], selected: TSelected, oth
             item.checkedStatus = other.multiple ? setMultipleCheckedStatus(item) : setSingleCheckedStatus(item);
             showData.push(item);
 
-            if (item.hasChildren && other.disabledRoot) {
+            // disabled 数据没值的时候 disabledRoot 才有效
+            if (typeof item.disabled === 'undefined' && item.hasChildren && other.disabledRoot) {
                 item.disabled = true;
             }
 
+            // 展开数据
             if (item.hasChildren && item.isExpansion) {
                 // 重复，导致children没值
-                list.splice(index + 1, 0, ...(item.children || []));
+                list.splice(index + 1, 0, ...item.children || []);
             }
 
             index++;

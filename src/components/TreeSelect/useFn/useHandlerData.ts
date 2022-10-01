@@ -94,7 +94,7 @@ export function useHandlerData<T> (options: IProps<T>['options'], normalizer: IP
                 if (!hasChildren) {
                     newItem.path.forEach((item) => {
                         // collectMap[newItem.value] = newItem;
-                        item.childrenAllKeyArr.push(newItem.value);
+                        !newItem.disabled && item.childrenAllKeyArr.push(newItem.value);
                     });
                 }
 

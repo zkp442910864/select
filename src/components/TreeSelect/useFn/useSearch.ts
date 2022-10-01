@@ -37,7 +37,7 @@ export function useSearch<T>(rootOptions: IItemData<T>[], allOptions: IItemData<
         } else {
             [
                 // 保证 每一步处理，需要的前置数据都存在
-                'path', 'value', 'children', 'childrenAllKeyArr', 'hasChildren', 'parent',
+                'path', 'value', 'children', 'disabled', 'childrenAllKeyArr', 'hasChildren', 'parent',
                 ...Object.keys(data),
             ].forEach((key) => {
                 // 存在，不在处理
@@ -58,14 +58,17 @@ export function useSearch<T>(rootOptions: IItemData<T>[], allOptions: IItemData<
                     // };
 
                     if (parentData) {
+                        // debugger
                         // 因为数据都是按顺序的，直接找到父级push进去
                         parentData.children.push(newData);
 
                         // 最后一层的数据挂到所有父级上
-                        !newData.hasChildren && newData.path.forEach((item: any) => {
-                            // collectMap[newItem.value] = newItem;
-                            item.children?.length && item.childrenAllKeyArr.push(newData.value);
-                        });
+                        if (!newData.hasChildren && !newData.disabled) {
+                            newData.path.forEach((item: any) => {
+                                // collectMap[newItem.value] = newItem;
+                                item.children?.length && item.childrenAllKeyArr.push(newData.value);
+                            });
+                        }
                         // !newData.hasChildren && findParent(parentData, (item: any) => {
                         //     item.childrenAllKeyArr.push(newData.value);
                         // });
