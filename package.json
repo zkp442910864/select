@@ -5,9 +5,14 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/zkp442910864/antd-extends"
+        "url": "https://github.com/zkp442910864/select"
     },
-    "homepage": "https://github.com/zkp442910864/antd-extends",
+    "homepage": "https://github.com/zkp442910864/select",
+    "keywords": [
+        "ScrollBox",
+        "Select",
+        "TreeSelect"
+    ],
     "scripts": {
         "start": "webpack serve --env CUSTOM_NODE_ENV=development --mode=development --config config/index.js",
         "start:no-mock": "webpack serve --env CUSTOM_NODE_ENV=development mock=no --mode=development --config config/index.js",
