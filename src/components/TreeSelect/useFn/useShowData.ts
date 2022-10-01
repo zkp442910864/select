@@ -2,7 +2,7 @@
 import {useEffect, useRef} from 'react';
 
 import {useStateAutoStop, debounce, empty, jsCopy, isCopyType} from '../../utils';
-import {IProps, IOptions, TObj, IItemData, Expand, TCheckStatus, TSelected} from '../TreeSelect.d';
+import {IProps, IOptions, TObj, IItemData, Expand, TCheckStatus, TSelected} from '../TreeSelect.type';
 
 export function useShowData<T>(options: IItemData<T>[], selected: TSelected, other: Pick<IProps<T>, 'multiple' | 'disabledRoot'>) {
     type TArrData = typeof options;

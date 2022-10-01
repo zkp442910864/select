@@ -2,7 +2,7 @@ import React, {FC, useEffect, useRef, useState} from 'react';
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 
 import TreeSelect from './TreeSelect';
-import {IProps, IItemData, TObj, IOptions, IRef, TValue} from './TreeSelect.d';
+import {IProps, IItemData, TObj, IOptions, IRef, TValue} from './TreeSelect.type';
 import {createTypeFn} from "../storybookUtils";
 
 import data from '../../testData/data.json';

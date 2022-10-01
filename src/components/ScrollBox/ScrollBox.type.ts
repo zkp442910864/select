@@ -1,4 +1,4 @@
-import React, {ReactChildren, ReactChild, ReactNode} from 'react';
+import React, {ReactNode} from 'react';
 
 export interface IProps<T = TObj> {
     /**

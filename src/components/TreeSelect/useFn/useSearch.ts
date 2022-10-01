@@ -1,7 +1,7 @@
 import {useEffect, useRef} from 'react';
 
 import {useStateAutoStop, debounce, empty, jsCopy, isCopyType} from '../../utils';
-import {IProps, IOptions, TObj, IItemData, Expand} from '../TreeSelect.d';
+import {IProps, IOptions, TObj, IItemData, Expand} from '../TreeSelect.type';
 
 export function useSearch<T>(rootOptions: IItemData<T>[], allOptions: IItemData<T>[], externalSearch: string, filterOption: IProps<T>['filterOption'] = 'title') {
     type TArrData = typeof rootOptions;

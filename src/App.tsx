@@ -7,7 +7,7 @@ import TreeSelect from './components/TreeSelect';
 // import ScrollBox from './components/ScrollBox';
 import data from './testData/data.json';
 
-import {TValue} from './components/TreeSelect/TreeSelect.d';
+import {TValue} from './components/TreeSelect/TreeSelect.type';
 
 // console.log(data);
 

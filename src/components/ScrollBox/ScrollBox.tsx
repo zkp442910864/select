@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import {useCustomScroll} from './useFn/useCustomScroll';
 import {useVirtual} from './useFn/useVirtual';
-import {IProps, TObj} from './ScrollBox.d';
+import {IProps, TObj} from './ScrollBox.type';
 import './ScrollBox.less';
 
 function ScrollBox<T>({

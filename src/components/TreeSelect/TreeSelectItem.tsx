@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import {IItemData, TSelected} from './TreeSelect.d';
+import {IItemData, TSelected} from './TreeSelect.type';
 import {useEvent} from './useFn/useEvent';
 
 function TreeSelectItem<T>({item, multiple, selectData, onShowData, onChange}: IProps<T>) {

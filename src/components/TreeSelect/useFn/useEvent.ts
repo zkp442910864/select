@@ -1,6 +1,6 @@
 
 import {useStateAutoStop, debounce, empty} from '../../utils';
-import {IItemData, TSelected} from '../TreeSelect.d';
+import {IItemData, TSelected} from '../TreeSelect.type';
 
 export function useEvent<T>() {
 

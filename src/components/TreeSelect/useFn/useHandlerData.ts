@@ -2,7 +2,7 @@
 import React, {FC, forwardRef, useEffect, useRef} from 'react';
 
 import {useStateAutoStop, debounce, empty} from '../../utils';
-import {IProps, IOptions, TObj, IItemData} from '../TreeSelect.d';
+import {IProps, IOptions, TObj, IItemData} from '../TreeSelect.type';
 
 export function useHandlerData<T> (options: IProps<T>['options'], normalizer: IProps<T>['normalizer'], otherProps: Pick<Required<IProps<T>>, 'treeDefaultExpandAll'>) {
     type TItemData = IItemData<T>;

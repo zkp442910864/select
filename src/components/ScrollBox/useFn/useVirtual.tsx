@@ -4,7 +4,7 @@ import ReactDom from 'react-dom';
 import classNames from 'classnames';
 
 import {useStateAutoStop, debounce} from '../../utils';
-import {TObj, TVirtualData} from '../ScrollBox.d';
+import {TObj, TVirtualData} from '../ScrollBox.type';
 
 /** 兼容 reactDom 18 及以下 */
 const compatibility = (dom: HTMLElement) => {

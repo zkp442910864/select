@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React, {Dispatch, SetStateAction, useEffect, useMemo, useRef} from 'react';
 
 import {useStateAutoStop, debounce, empty} from '../../utils';
-import {IProps, TSelected} from '../TreeSelect.d';
+import {IProps, TSelected} from '../TreeSelect.type';
 
 export function useInput (
     dom: React.MutableRefObject<HTMLDivElement | null>,

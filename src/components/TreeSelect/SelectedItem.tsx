@@ -1,7 +1,7 @@
 import React, {DOMAttributes, MouseEventHandler} from 'react';
 
 import {empty} from '../utils';
-import {IItemData, IProps as ITreeSelectProps, TSelected} from './TreeSelect.d';
+import {IItemData, IProps as ITreeSelectProps, TSelected} from './TreeSelect.type';
 
 
 

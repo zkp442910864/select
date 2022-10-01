@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import '../../assets/iconFont/iconfont.css';
 
 import {useStateAutoStop, debounce, empty, useDebounceEffect} from '../utils';
-import {IProps, IItemData, TObj, TSelected, IRef} from './TreeSelect.d';
+import {IProps, IItemData, TObj, TSelected, IRef} from './TreeSelect.type';
 import ScrollBox from '../ScrollBox';
 import TreeSelectItem from './TreeSelectItem';
 import SelectedItem from './SelectedItem';

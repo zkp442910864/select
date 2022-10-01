@@ -2,7 +2,7 @@
 import {useRef} from 'react';
 
 import {useStateAutoStop, debounce, empty} from '../../utils';
-import {IProps, IItemData, TObj, TSelected} from '../TreeSelect.d';
+import {IProps, IItemData, TObj, TSelected} from '../TreeSelect.type';
 
 export const useSelectData = () => {
     const [selectData, setSelectData] = useStateAutoStop<TSelected>({});
