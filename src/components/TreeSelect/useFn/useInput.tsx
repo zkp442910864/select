@@ -113,10 +113,10 @@ export function useInput (
         /** 清空搜索文本 */
         clearSearch: () => setSearch(''),
         /** 获取焦点 */
-        focus: () => {
+        focus: (force = false) => {
             setTimeout(() => {
                 if (!ref.current) return;
-                isFocus && ref.current.focus();
+                (isFocus || force) && ref.current.focus();
             }, 0);
         },
         /** 焦点 */

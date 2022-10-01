@@ -135,7 +135,7 @@ function TreeSelect<T> ({
             />
             {searchDom}
 
-            <div className={classNames('zzzz-tree-select-arrows', {rolling: isFocus})}>
+            <div className={classNames('zzzz-tree-select-arrows', {rolling: isFocus})} onClick={(e) => {e.stopPropagation(); enterView(); focus(true);}}>
                 <span className="zzzz-iconfont zzzz-icon-xiala" />
             </div>
 
