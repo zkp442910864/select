@@ -1,6 +1,6 @@
 import React, {useEffect, useMemo, useRef} from 'react';
 import ReactDom from 'react-dom';
-import {createRoot} from 'react-dom/client';
+// import {createRoot} from 'react-dom/client';
 import classNames from 'classnames';
 
 import {useStateAutoStop, debounce} from '../../utils';
@@ -8,10 +8,11 @@ import {TObj, TVirtualData} from '../ScrollBox.d';
 
 /** 兼容 reactDom 18 及以下 */
 const compatibility = (dom: HTMLElement) => {
+    const createRoot = undefined as any;
     let mount = (jsx: JSX.Element) => {};
     let unMount = () => {};
 
-    if (typeof createRoot === undefined) {
+    if (typeof createRoot === 'undefined') {
         mount = (jsx: JSX.Element) => {
             ReactDom.render(jsx, dom);
         };
@@ -165,7 +166,7 @@ export function useVirtual<T>(virtualData: TVirtualData<T>, scrollBox: React.Mut
                 /** 默认行高 */
                 const rowHeight = config.defaultRowHeight;
                 /** 条数 */
-                const rows = Math.ceil(clientHeight / rowHeight);
+                const rows = Math.ceil(clientHeight / rowHeight) + 1;
 
                 const scrollTop = scrollBoxDom.scrollTop;
 
@@ -261,7 +262,7 @@ export function useVirtual<T>(virtualData: TVirtualData<T>, scrollBox: React.Mut
                 /** 默认行高 */
                 const rowHeight = config.defaultRowHeight;
                 /** 条数 */
-                const rows = Math.ceil(clientHeight / rowHeight);
+                const rows = Math.ceil(clientHeight / rowHeight) + 1;
 
                 const scrollTop = scrollBoxDom.scrollTop;
                 const {startIndex, topValue, totalHeight} = getComputedValue(scrollTop, rowHeight);
