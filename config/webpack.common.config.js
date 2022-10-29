@@ -28,6 +28,7 @@ module.exports = (env, argv, config) => {
         umdExternals,
         umdLibrary,
         umdFilename,
+        extraScript = [],
     } = config;
 
     const isLib = env.lib === 'umd';
@@ -282,7 +283,9 @@ module.exports = (env, argv, config) => {
             new HtmlWebpackPlugin({
                 template: getFullUrl('public/index.html'),
                 title: pageTitle,
-                inject: 'body',
+                inject: 'head',
+                minify: false,
+                extraScript,
             }),
             new webpack.DefinePlugin({
                 'process.env': {

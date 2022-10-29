@@ -44,11 +44,10 @@ const config = {
     /**
      * umd打包忽略的包
      */
-    umdExternals: [
-        'react',
-        'react-dom',
-        'ReactDom',
-    ],
+    umdExternals: {
+        react: 'React',
+        'react-dom': 'ReactDOM',
+    },
     /**
      * umd打包，挂载全局时候的 属性名
      */
@@ -57,6 +56,11 @@ const config = {
      * umd打包，输出的文件名
      */
     umdFilename: 'index',
+    /** 额外的js */
+    extraScript: [
+        'https://unpkg.com/react@18.2.0/umd/react.production.min.js',
+        'https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js',
+    ],
 };
 
 module.exports = (env, argv) => {

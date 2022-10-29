@@ -28,6 +28,7 @@ module.exports = (env, argv, config) => {
     } = config;
 
     return {
+        devtool: false,
         plugins: [
             new CleanWebpackPlugin(),
             // new WebpackManifestPlugin(),

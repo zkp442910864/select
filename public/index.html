@@ -6,10 +6,60 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= htmlWebpackPlugin.options.title %></title>
+
+    <% htmlWebpackPlugin.options.extraScript.forEach(function(url) { %>
+        <script defer="defer" src="<%= url %>"></script>
+    <% }) %>
 </head>
 
 <body>
     <div id="root"></div>
+
+    <script>
+        window.addEventListener('load', () => {
+            console.log(xLib)
+            const app = ReactDOM.createRoot(document.getElementById('root'));
+
+            const setAndInit = async (value, onChange) => {
+                const {default: mockData} = await xLib.mockData();
+                console.time('aa')
+                app.render(React.createElement(xLib.TreeSelect, {
+                    multiple: true,
+                    normalizer: (item, level) => {
+                        return {
+                            title: item.NAME,
+                            value: item.ID,
+                            children: item.ITEMS,
+                            isExpansion: level === 0 ? true : undefined,
+                            // disabled: level === 0 ? true : undefined,
+                        };
+                    },
+                    options: mockData,
+                    popupsMinWidth: 600,
+                    ref: (e) => {
+                        console.log(e)
+                    },
+                    value,
+                    onChange,
+                }));
+
+                console.timeEnd('aa')
+            }
+
+
+            setAndInit([3, 4, 5], (val) => {
+                console.log(val)
+            });
+
+            setTimeout(() => {
+                setAndInit([1425, 1426, 1427, 1428, 1429, 1430, 1431, 1432], (val) => {
+                    console.log(val)
+                });
+            }, 5000)
+
+            window.setAndInit = setAndInit;
+        }, false)
+    </script>
 </body>
 
 </html>
