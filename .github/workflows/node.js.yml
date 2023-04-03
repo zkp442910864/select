@@ -32,7 +32,7 @@ jobs:
 
       - name: Build
         run: |
-          npm i -g pnpm
+          npm i -g pnpm@7
           pnpm install
           pnpm build:docs
 
