@@ -42,3 +42,22 @@
     4.结束位置: `起始位置 + 行数`
     5.设置总高: `数据总数 * 行高`
     6.设置浮动距离: `起始位置 * 行高`
+
+- 虚拟滚动优化
+    1.计算滚动速率
+        - 记录起始 scrollTop, 滚动事件中, 定时16ms 得到的位置, 相减得到的 px/16ms
+        -
+            ```js
+                // 应该还要加个防抖，进行解锁
+                let scrollTop = document.documentElement.scrollTop;
+                window.onscroll = function (e) {
+                    setTimeout(function () {
+                        const tempScrollTop = document.documentElement.scrollTop
+                        if (Math.abs(scrollTop - tempScrollTop) === 0) return
+                        console.log(Math.abs(scrollTop - tempScrollTop))
+                        scrollTop = tempScrollTop
+                    }, 16)
+                }
+            ```
+    2.判断速率来对计算逻辑进行锁定，慢下来后进行解锁
+    3.锁定的时候，清空展示，使用背景图片进行展示
